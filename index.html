@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>How Many Times Has This Button Been Clicked?</title>
+    <title>AutoRigger</title>
     <meta name="description" content="Simple Node.js project that uses real-time server to client communication via Socket.io to display how many times a button has been clicked.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -14,14 +14,14 @@
 <body>
 
     <div class="container">
-        <h1 class="message">Upload a file & click on Auto-rig!</h1>
+        <h1 class="message">Upload a humanoid model (.OBJ) & get the rigged model </h1>
 
         <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
             <input class="btn btn-success" type="file" id="uploadFile" name="foo" accept=".obj" />
             <!-- <input type='submit' value='Auto-rig' />
 			-->
         </form>
-        <a id="downloadBtn" class="btn btn-success download-btn" href="/download">Download DAE file</a>
+        <a id="downloadBtn" class="btn btn-success download-btn" href="/download">Download .DAE file</a>
     </div>
 
     <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script>
