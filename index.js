@@ -3,7 +3,7 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 
 // Start server
@@ -31,8 +31,8 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-        // socket.emit('file-ready');
-        Report();
+        socket.emit('file-ready');
+
     });
 
 });
@@ -88,9 +88,4 @@ io.on('connection', function(socket) {
         });
     });
 
-    function Report(socket) {
-        this.update = function(data) {
-            socket.emit('file-ready');
-        }
-    }
 });
