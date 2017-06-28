@@ -8,10 +8,16 @@
 
     document.getElementById("uploadFile").onchange = function() {
         document.getElementById("uploadForm").submit();
+         document.getElementById("loader").style.display = "";
     };
-
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("container").style.display = "none";
+  
+}
     socket.on('file-ready', function(data) {
         $downloadBtn.style.display = "";
+        showPage();
     });
     $downloadBtn.addEventListener('click', function() {
         socket.emit('download-clicked');
