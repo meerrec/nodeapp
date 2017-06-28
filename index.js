@@ -56,10 +56,10 @@ autoRigManager.buildAutoRiggingFromPawnMesh(defaultPawn0, 0, skeleton_sk, autori
 saveDeformableMesh(autorigged_mesh_dae, skeleton_sk, save_dir)
 quit()
 `;        
-        fs.writeFile('/var/www/outputs/' + req.files.foo.name + '.py', scriptContent, function(err, data) {
+        fs.writeFile('/var/www/temp/smartbody-cli-mod/' + req.files.foo.name + '.py', scriptContent, function(err, data) {
 
             var child_process = require("child_process");
-            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script python7.py", { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script "+ req.files.foo.name + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
                 if (err) {
                     console.log(err.toString());
                 } else if (stdout !== "") {
