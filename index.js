@@ -22,21 +22,27 @@ app.post('/upload', function(req, res) {
     if (!req.files)
         return res.status(400).send('No files were uploaded.');
 
-
-    let sampleFile = req.files.foo;
-    console.log(req.files.foo);
     // Use the mv() method to place the file somewhere on your server 
+    let sampleFile = req.files.foo;
     sampleFile.mv('/var/www/inputs/' + req.files.foo.name, function(err) {
         if (err)
             return res.status(500).send(err);
 
+        fs.writeFile(__dirname + '../outputs' + req.files.foo.name + '.py', "hi", function(err, data) {
+
+
+        });
+
+
+
         res.sendFile(__dirname + '/index.html');
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
         fileReady = true;
-
     });
-
 });
+
+
+
 app.get('/hello', function(req, res) {
     res.sendFile(__dirname + '/index.html');
 
