@@ -1,0 +1,68 @@
+html {
+	background-color: #1A74C6;
+	body {
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 14px;
+		color: #333;
+	}
+	a {
+		color: #5cb85c;
+		text-decoration: none;
+	}
+	h1,	h2,	h3,	h4,	h5,	h6 {
+		font-family: inherit;
+		font-weight: 500;
+		line-height: 1.1;
+		color: inherit;
+	}
+	h1 {
+		font-size: 36px;
+	}
+	h3 {
+		font-size: 24px;
+	}
+	.btn {
+		display: inline-block;
+		padding: 6px 12px;
+		margin-bottom: 0;
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		-ms-touch-action: manipulation;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+		border-radius: 4px;
+	}
+	.btn-success {
+		color: #fff;
+		background-color: #5cb85c;
+		border-color: #4cae4c;
+		&:hover {
+			color: #fff;
+			background-color: #449d44;
+			border-color: #398439;
+		}
+	}
+}
+
+.container {
+	text-align: center;
+	.message {
+		margin: 80px 0;
+	}
+	.count {
+		margin-bottom: 20px;
+	}
+	.the-btn {
+		margin-bottom: 50px;
+	}
+}

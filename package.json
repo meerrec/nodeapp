@@ -1,0 +1,23 @@
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "test node+cli sbgui",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iakashpaul/nodeapp.git"
+  },
+  "author": "Akash Paul",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iakashpaul/nodeapp/issues"
+  },
+  "homepage": "https://github.com/iakashpaul/nodeapp#readme",
+  "dependencies": {
+   "express": "^4.2.x",
+    "socket.io": "1.3.6"
+  }
+}
