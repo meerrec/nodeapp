@@ -28,16 +28,52 @@ app.post('/upload', function(req, res) {
         if (err)
             return res.status(500).send(err);
 
-        fs.writeFile('/var/www/outputs/' + req.files.foo.name + '.py', "hi", function(err, data) {
+// Dynamic Python script generator
+        var scriptContent1="getViewer().show()
+from AutoRig import *
+assetManager = scene.getAssetManager()
+autoRigManager = SBAutoRigManager.getAutoRigManager()
+# setup paths and object names
+work_dir ='/var/www/inputs'
+save_dir ='/var/www/outputs'
+skeleton_sk = 'maddy.sk'
+defaultPawn0 = 'defaultPawn4' "
 
+mesh_obj="mesh_obj= "+req.files.foo.name+" ";
+autorigged_mesh_dae="autorigged_mesh_dae= "+req.files.foo.name.substr(req.files.foo.name.lastIndexOf('.')+1)+'.dae';
+
+scriptContent2="assetManager.loadAsset(work_dir + '/' + mesh_obj)
+pawn = scene.createPawn(defaultPawn0)
+pawn.setStringAttribute('mesh', mesh_obj)
+#next
+autoRigManager.buildAutoRiggingFromPawnMesh(defaultPawn0, 0, skeleton_sk, autorigged_mesh_dae)
+saveDeformableMesh(autorigged_mesh_dae, skeleton_sk, save_dir)
+quit()"
+scriptContent=scriptContent1+mesh_obj+autorigged_mesh_dae+scriptContent2;
+
+fs.writeFile('/var/www/outputs/' + req.files.foo.name + '.py', scriptContent, function(err, data) {
+         
+          var child_process = require("child_process");
+    child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script python7.py", { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+        if (err) {
+            console.log(err.toString());
+        } else if (stdout !== "") {
+            console.log(stdout);
+            console.log("Finished execution")
+                // Send client a websocket message about the file being ready.
+res.sendFile(__dirname + '/index.html');
+        //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
+        fileReady = true;
+        } else {
+            console.log(stderr);
+        }
+    });
 
         });
 
 
 
-        res.sendFile(__dirname + '/index.html');
-        //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-        fileReady = true;
+        
     });
 });
 
