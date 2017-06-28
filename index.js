@@ -31,6 +31,7 @@ app.post('/upload',function(req,res){
       return res.status(500).send(err);
  
     res.send('File '+ req.files.foo.name + ' uploaded & saved!');
+		socket.emit('file-ready');
   });
 
 });
@@ -52,8 +53,6 @@ app.get('/hello', function(req, res) {
       }
    });
 });
-
-
 
 // Socket.io
 io.on('connection', function(socket) {
