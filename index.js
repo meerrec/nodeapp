@@ -8,7 +8,8 @@ global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
 var path= require('path');
-
+var fileName;
+var autorigged_mesh_dae;
 // Setup routing for static assets
 app.use('/public', express.static('public'));
 app.use(fileUpload());
@@ -31,10 +32,10 @@ app.post('/upload', function(req, res) {
         // Dynamic Python script generator
 
         var mesh_obj=req.files.foo.name;
-        var fileName= req.files.foo.name;
+        fileName= req.files.foo.name;
         var extension=path.extname(fileName);
         fileName= path.basename(fileName,extension);
-        var autorigged_mesh_dae= fileName + '.dae';
+        autorigged_mesh_dae= fileName + '.dae';
         console.log(autorigged_mesh_dae);
         var scriptContent = `getViewer().show()
 from AutoRig import *
@@ -87,23 +88,9 @@ quit()
 
 
 
-app.get('/hello', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get('/download', function(req, res) {
 
-    // sbgui call
-    var child_process = require("child_process");
-    child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script python7.py", { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
-        if (err) {
-            console.log(err.toString());
-        } else if (stdout !== "") {
-            console.log(stdout);
-            console.log("Finished execution")
-                // Send client a websocket message about the file being ready.
-
-        } else {
-            console.log(stderr);
-        }
-    });
+res.download('/var/www/outputs/'+autorigged_mesh_dae, autorigged_mesh_dae);
 });
 
 // Socket.io
