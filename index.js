@@ -32,7 +32,7 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-        socket.emit('file-ready');
+        io.socket.emit('file-ready');
 
     });
 
