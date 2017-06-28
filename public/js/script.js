@@ -1,5 +1,5 @@
 (function() {
-	var socket = io.connect('http://localhost:8080');
+	var socket = io.connect('http://45.76.150.25:8080');
 
 	// Cache DOM selections
 	var $count = document.querySelector('.count'),
