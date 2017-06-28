@@ -15,6 +15,15 @@
 		<h1 class="message">Upload a file & click on Auto-rig!</h1>
          <a class="btn" href="/" target="_blank">Upload .obj file</a>
 		<a class="btn" href="/hello" target="_blank">Auto-rig</a>
+
+		<form ref='uploadForm' 
+      id='uploadForm' 
+      action='/upload' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="foo" />
+        <input type='submit' value='Upload!' />
+    </form>  
 		<h1 class="message">How Many Times Has This Button Been Clicked?</h1>
 
 		<h3 class="count">Loading...</h3>

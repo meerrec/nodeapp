@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+const fileUpload = require('express-fileupload');
 
 // Start server
 server.listen(8080);
@@ -12,11 +12,18 @@ server.listen(8080);
 
 // Setup routing for static assets
 app.use('/public', express.static('public'));
-
+app.use(fileUpload());
 
 // Express routes
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
+});
+app.post('/upload',function(req,res){
+ if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+console.log(req.files.foo);
+res.send('File uploaded!');
 });
 app.get('/hello', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -29,6 +36,8 @@ app.get('/hello', function(req, res) {
       } else if (stdout !== "") {
         console.log(stdout);
 				console.log("Finished execution")
+				// Send client a websocket message about the file being ready.
+
       } else {
         console.log(stderr);
       }
