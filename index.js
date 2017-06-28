@@ -3,11 +3,12 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var server = require('http').Server(app);
+server.listen(8080);
 global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 
 // Start server
-server.listen(8080);
+
 
 
 // Setup routing for static assets
@@ -31,7 +32,7 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-        io.socket.emit('file-ready');
+        socket.emit('file-ready');
 
     });
 
