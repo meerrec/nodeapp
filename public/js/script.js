@@ -5,7 +5,7 @@
     var $count = document.querySelector('.count'),
         $theBtn = document.querySelector('.the-btn'),
         $downloadBtn = document.querySelector('.download-btn');
-    $("#downloadBtn").hide();
+    $downloadBtn.style.display = "none";
     // When the 'new-client-connection' event happens, set the count on the page
     socket.on('new-client-connection', function(data) {
         $count.innerHTML = numberWithCommas(data.count);
@@ -21,7 +21,7 @@
         $count.innerHTML = numberWithCommas(data.count);
     });
     socket.on('file-ready', function(data) {
-        $("#downloadBtn").show();
+        $downloadBtn.style.display = "";
     });
     $downloadBtn.addEventListener('click', function() {
         socket.emit('download-clicked');
