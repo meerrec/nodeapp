@@ -6,6 +6,12 @@
         $theBtn = document.querySelector('.the-btn'),
         $downloadBtn = document.querySelector('.download-btn');
     $downloadBtn.style.display = "none";
+
+
+    document.getElementById("uploadFile").onchange = function() {
+        document.getElementById("uploadForm").submit();
+    };
+
     // When the 'new-client-connection' event happens, set the count on the page
     socket.on('new-client-connection', function(data) {
         $count.innerHTML = numberWithCommas(data.count);

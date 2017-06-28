@@ -22,8 +22,9 @@ app.post('/upload', function(req, res) {
     if (!req.files)
         return res.status(400).send('No files were uploaded.');
 
-    let sampleFile = req.files.foo;
 
+    let sampleFile = req.files.foo;
+    console.log(req.files.foo);
     // Use the mv() method to place the file somewhere on your server 
     sampleFile.mv('/var/www/inputs/' + req.files.foo.name, function(err) {
         if (err)
