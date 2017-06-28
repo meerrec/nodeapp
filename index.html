@@ -10,14 +10,16 @@
     <link rel="stylesheet" href="public/stylesheets/css/style.css" type="text/css">
 <style>
 .loader {
-    position: absolute;
+  position: absolute;
   left: 50%;
   top: 50%;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid #3498db;
-  width: 120px;
-  height: 120px;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
@@ -36,7 +38,7 @@
 
 <body>
 
-     <div class="container">
+     <div class="container" id="container">
         <div class="loader" id="loader"></div>
    
         <h1 class="message">Upload a humanoid model (.OBJ) & get the rigged model </h1>
