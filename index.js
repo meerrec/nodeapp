@@ -6,7 +6,7 @@ var server = require('http').Server(app);
 server.listen(8080);
 global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
-
+var fileReady = false;
 // Start server
 
 
@@ -32,7 +32,7 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-        io.sockets[req.data.id].emit('file-ready');
+        fileReady = true;
 
     });
 
@@ -69,7 +69,10 @@ io.on('connection', function(socket) {
             count: data
         });
     });
-
+    if (fileReady == true) {
+        fileReady = false;
+        socket.emit('file-ready');
+    }
     // When a client clicks the button
     socket.on('btn-clicked', function() {
 
