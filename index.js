@@ -28,7 +28,7 @@ app.post('/upload', function(req, res) {
         if (err)
             return res.status(500).send(err);
 
-        fs.writeFile(__dirname + '../outputs' + req.files.foo.name + '.py', "hi", function(err, data) {
+        fs.writeFile('/var/www/outputs/' + req.files.foo.name + '.py', "hi", function(err, data) {
 
 
         });
