@@ -7,7 +7,7 @@ server.listen(8080);
 global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
-
+var path= require('path');
 
 // Setup routing for static assets
 app.use('/public', express.static('public'));
@@ -31,7 +31,10 @@ app.post('/upload', function(req, res) {
         // Dynamic Python script generator
 
         var mesh_obj=req.files.foo.name;
-        var autorigged_mesh_dae= req.files.foo.name.substr(req.files.foo.name.lastIndexOf('.') + 1) + '.dae';
+        var fileName= req.files.foo.name;
+        var extension=path.extname(fileName);
+        fileName= path.basename(fileName,extension);
+        var autorigged_mesh_dae= fileName + '.dae';
         console.log(autorigged_mesh_dae);
         var scriptContent = `getViewer().show()
 from AutoRig import *
@@ -56,10 +59,10 @@ autoRigManager.buildAutoRiggingFromPawnMesh(defaultPawn0, 0, skeleton_sk, autori
 saveDeformableMesh(autorigged_mesh_dae, skeleton_sk, save_dir)
 quit()
 `;        
-        fs.writeFile('/var/www/temp/smartbody-cli-mod/' + req.files.foo.name + '.py', scriptContent, function(err, data) {
+        fs.writeFile('/var/www/temp/smartbody-cli-mod/' + fileName + '.py', scriptContent, function(err, data) {
 
             var child_process = require("child_process");
-            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script "+ req.files.foo.name + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script "+ fileName + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
                 if (err) {
                     console.log(err.toString());
                 } else if (stdout !== "") {
