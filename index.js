@@ -7,8 +7,6 @@ server.listen(8080);
 global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
-// Start server
-
 
 
 // Setup routing for static assets
@@ -31,6 +29,7 @@ app.post('/upload', function(req, res) {
         if (err)
             return res.status(500).send(err);
 
+        res.sendFile(__dirname + '/index.html');
         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
         fileReady = true;
 
