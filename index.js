@@ -20,12 +20,15 @@ app.get('/', function(req, res) {
 });
 app.get('/hello', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
+
+// sbgui call
 	var child_process = require("child_process");
     child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script python7.py",{cwd:"/var/www/smartbody/bin"}, function(err, stdout, stderr) {
       if (err) {
         console.log(err.toString());
       } else if (stdout !== "") {
         console.log(stdout);
+				console.log("Finished execution")
       } else {
         console.log(stderr);
       }
@@ -50,17 +53,6 @@ io.on('connection', function(socket) {
 
 	// When a client clicks the button
 	socket.on('btn-clicked', function() {
-		//sbgui call
-		var child_process = require("child_process");
-    child_process.exec("./sbgui",{cwd:"/var/www/smartbody/bin"}, function(err, stdout, stderr) {
-      if (err) {
-        console.log(err.toString());
-      } else if (stdout !== "") {
-        console.log(stdout);
-      } else {
-        console.log(stderr);
-      }
-   });
 
 		// Read the count from count.txt
 		fs.readFile('count.txt', 'utf-8', function(err, data) {
