@@ -8,7 +8,8 @@ global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
 var path = require('path');
-
+var fileName;
+var autorigged_mesh_dae;
 
 // Setup routing for static assets
 app.use(express.static('public'));
@@ -30,8 +31,7 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         // Dynamic Python script generator
-        var fileName;
-        var autorigged_mesh_dae;
+
         var mesh_obj = req.files.foo.name;
         fileName = req.files.foo.name;
         var extension = path.extname(fileName);
@@ -75,7 +75,8 @@ quit()
                     //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     fileReady = true;
                     res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
-
+                    fileName = "";
+                    autorigged_mesh_dae = "";
                 } else {
                     console.log(stderr);
                 }
