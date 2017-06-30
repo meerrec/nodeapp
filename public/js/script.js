@@ -9,12 +9,10 @@
 
     function showPage() {
         document.getElementById("loader").style.display = "none";
-        document.getElementById("container").style.display = "none";
+        // document.getElementById("container").style.display = "none";
 
     }
     socket.on('file-ready', function(data) {
-
-        var fileName = data.fileName;
         showPage();
     });
 
