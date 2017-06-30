@@ -77,7 +77,14 @@
                 <div id="js-controls">
 
                 </div>
-                <input id="js-upload" type="file" name="files[]" multiple="" accept=".obj">
+                <form ref='uploadForm' id='uploadForm' action='/upload' method='post' encType="multipart/form-data">
+                    <input class="btn btn-success" type="file" id="js-upload" name="foo" accept=".obj" />
+                    <!--
+						  <input id="js-upload" type="file" name="files[]" multiple="" accept=".obj">
+                   <input type='submit' value='Auto-rig' />
+			-->
+                </form>
+
 
                 <!--<button type="button" id="js-sumbit-model" class="btn btn-primary btn--save-obj">Submit</button>-->
 
