@@ -90,16 +90,10 @@ quit()
 });
 
 
-
-app.get('/download', function(req, res) {
-    res.sendFile(__dirname + '/public/index.html');
-    // res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
-});
-
 // Socket.io
 io.on('connection', function(socket) {
     var count;
-
+    console.log("got a connection " + socket);
     // Read the count value from count.txt
     fs.readFile('count.txt', 'utf-8', function(err, data) {
         count = data;
@@ -112,11 +106,9 @@ io.on('connection', function(socket) {
     if (fileReady == true) {
         fileReady = false;
         socket.emit('file-ready');
-
+        console.log("File ready sent");
     }
-    socket.on('pause', function() {
-        socket.emit('file-ready');
-    });
+
     // When a client clicks the button
     socket.on('btn-clicked', function() {
 
