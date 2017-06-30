@@ -4,19 +4,18 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 server.listen(8080);
-global.io = require('socket.io')(server);
+var io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
-var path= require('path');
-var fileName;
-var autorigged_mesh_dae;
+var path = require('path');
+
 // Setup routing for static assets
-app.use('/public', express.static('public'));
+app.use(express.static('public'));
 app.use(fileUpload());
 
 // Express routes
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.post('/upload', function(req, res) {
@@ -30,12 +29,14 @@ app.post('/upload', function(req, res) {
             return res.status(500).send(err);
 
         // Dynamic Python script generator
+        var fileName;
+        var autorigged_mesh_dae;
 
-        var mesh_obj=req.files.foo.name;
-        fileName= req.files.foo.name;
-        var extension=path.extname(fileName);
-        fileName= path.basename(fileName,extension);
-        autorigged_mesh_dae= fileName + '.dae';
+        var mesh_obj = req.files.foo.name;
+        fileName = req.files.foo.name;
+        var extension = path.extname(fileName);
+        fileName = path.basename(fileName, extension);
+        autorigged_mesh_dae = fileName + '.dae';
         console.log(autorigged_mesh_dae);
         var scriptContent = `getViewer().show()
 from AutoRig import *
@@ -59,20 +60,23 @@ pawn.setStringAttribute('mesh', mesh_obj)
 autoRigManager.buildAutoRiggingFromPawnMesh(defaultPawn0, 0, skeleton_sk, autorigged_mesh_dae)
 saveDeformableMesh(autorigged_mesh_dae, skeleton_sk, save_dir)
 quit()
-`;        
+`;
         fs.writeFile('/var/www/temp/smartbody-cli-mod/' + fileName + '.py', scriptContent, function(err, data) {
 
             var child_process = require("child_process");
-            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script "+ fileName + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script " + fileName + '.py', {
+                cwd: "/var/www/smartbody/bin"
+            }, function(err, stdout, stderr) {
                 if (err) {
                     console.log(err.toString());
                 } else if (stdout !== "") {
                     console.log(stdout);
-                    console.log("Finished execution")
-                        // Send client a websocket message about the file being ready.
-                    res.sendFile(__dirname + '/index.html');
-                    //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     fileReady = true;
+                    console.log("Finished execution");
+
+                    res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
+                    fileName = "";
+                    autorigged_mesh_dae = "";
                 } else {
                     console.log(stderr);
                 }
@@ -87,16 +91,10 @@ quit()
 });
 
 
-
-app.get('/download', function(req, res) {
-
-res.download('/var/www/outputs/'+autorigged_mesh_dae, autorigged_mesh_dae);
-});
-
 // Socket.io
 io.on('connection', function(socket) {
     var count;
-
+    console.log("got a connection " + socket);
     // Read the count value from count.txt
     fs.readFile('count.txt', 'utf-8', function(err, data) {
         count = data;
@@ -109,7 +107,9 @@ io.on('connection', function(socket) {
     if (fileReady == true) {
         fileReady = false;
         socket.emit('file-ready');
+        console.log("File ready sent");
     }
+    socket.on('pause', function() { socket.emit('file-ready'); });
     // When a client clicks the button
     socket.on('btn-clicked', function() {
 
