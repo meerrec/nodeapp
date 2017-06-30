@@ -74,7 +74,7 @@ quit()
                         //res.sendFile(__dirname + '/public/index.html');
                         //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
-                    //fileReady = true;
+                    fileReady = true;
                 } else {
                     console.log(stderr);
                 }

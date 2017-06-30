@@ -9,12 +9,6 @@
 
     <link rel="stylesheet" href="/stylesheets/css/style.css" type="text/css">
     <style>
-        .downloadBtn {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-        }
-        
         .loader {
             position: absolute;
             left: 50%;
@@ -84,9 +78,6 @@
                    <input type='submit' value='Auto-rig' />
 			-->
                 </form>
-
-                <a id="downloadBtn" class="btn btn-success download-btn" href="/download">Download .DAE file</a>
-                <!--<button type="button" id="js-sumbit-model" class="btn btn-primary btn--save-obj">Submit</button>-->
 
 
             </nav>
@@ -449,13 +440,11 @@
                         console.log('Complete');
                     }, 50000);
                 };
-                wwObjLoader2Control.download = function() {
-                    $('#downloadBtn')[0].click();
-                };
+
 
                 folderOptions.add(wwObjLoader2Control, 'clearAllAssests').name('Clear Scene');
                 folderOptions.add(wwObjLoader2Control, 'uploadServer').name('Save');
-                folderOptions.add(wwObjLoader2Control, 'download').name('Download');
+
             }
 
             var resizeWindow = function resizeWindow() {
