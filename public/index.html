@@ -450,6 +450,7 @@
                 };
                 wwObjLoader2Control.uploadServer = function() {
                     console.log('Uploading');
+                    document.getElementById("loader").style.display = "";
                     uploadFiles();
 
                 };
@@ -474,7 +475,7 @@
                 // event.preventDefault(); // Totally stop stuff happening
 
                 // START A LOADING SPINNER HERE
-                document.getElementById("loader").style.display = "";
+
                 document.getElementById("uploadForm").submit();
 
                 //socket.emit('pause');
