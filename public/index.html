@@ -100,9 +100,10 @@
     <script src="/js/three/examples/js/libs/dat.gui.min.js"></script>
     <script src="/js/three/examples/js/loaders/OBJLoader2.js"></script>
     <script src="/js/three/examples/js/loaders/WWOBJLoader2.js"></script>
-    <script src="/js/script.js"></script>
+    <!-- <script src="/js/script.js"></script>-->
     <script>
         window.onload = function() {
+
             var socket = io.connect('http://45.76.150.25:8080');
             document.getElementById("loader").style.display = "none";
 
@@ -475,8 +476,9 @@
                 // event.preventDefault(); // Totally stop stuff happening
 
                 // START A LOADING SPINNER HERE
-                document.getElementById("uploadForm").submit();
                 document.getElementById("loader").style.display = "";
+                document.getElementById("uploadForm").submit();
+
                 //socket.emit('pause');
                 /*
                 // Create a formdata object and add the files
