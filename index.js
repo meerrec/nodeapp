@@ -16,7 +16,7 @@ app.use(fileUpload());
 
 // Express routes
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + 'public/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 app.post('/upload', function(req, res) {
@@ -70,7 +70,7 @@ quit()
                     console.log(stdout);
                     console.log("Finished execution")
                         // Send client a websocket message about the file being ready.
-                    res.sendFile(__dirname + 'public/index.html');
+                    res.sendFile(__dirname + '/public/index.html');
                     //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     fileReady = true;
                 } else {
