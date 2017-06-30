@@ -64,7 +64,9 @@ quit()
         fs.writeFile('/var/www/temp/smartbody-cli-mod/' + fileName + '.py', scriptContent, function(err, data) {
 
             var child_process = require("child_process");
-            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script " + fileName + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script " + fileName + '.py', {
+                cwd: "/var/www/smartbody/bin"
+            }, function(err, stdout, stderr) {
                 if (err) {
                     console.log(err.toString());
                 } else if (stdout !== "") {
@@ -73,15 +75,15 @@ quit()
                     // Send client a websocket message about the file being ready.
                     //res.sendFile(__dirname + '/public/index.html');
                     //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
-                    fileReady = true;
-                    res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
-                    fileName = "";
-                    autorigged_mesh_dae = "";
+
                 } else {
                     console.log(stderr);
                 }
             });
-
+            fileReady = true;
+            res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
+            fileName = "";
+            autorigged_mesh_dae = "";
         });
 
 
