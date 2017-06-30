@@ -103,6 +103,20 @@
     <script src="/js/script.js"></script>
     <script>
         window.onload = function() {
+            var socket = io.connect('http://45.76.150.25:8080');
+            document.getElementById("loader").style.display = "none";
+
+            function showPage() {
+                document.getElementById("loader").style.display = "none";
+                console.log("inside showPage")
+                    // document.getElementById("container").style.display = "none";
+
+            }
+            socket.on('file-ready', function(data) {
+                showPage();
+                console.log("inside file-ready")
+            });
+
             var webLoader = function() {
 
                 var Validator = THREE.OBJLoader2.prototype._getValidator();
@@ -463,7 +477,7 @@
                 // START A LOADING SPINNER HERE
                 document.getElementById("uploadForm").submit();
                 document.getElementById("loader").style.display = "";
-                socket.emit('pause');
+                //socket.emit('pause');
                 /*
                 // Create a formdata object and add the files
                 var data = new FormData();
