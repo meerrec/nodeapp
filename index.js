@@ -71,8 +71,8 @@ quit()
                     console.log(stdout);
                     console.log("Finished execution")
                         // Send client a websocket message about the file being ready.
-                    res.sendFile(__dirname + '/public/index.html');
-                    //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
+                        //res.sendFile(__dirname + '/public/index.html');
+                        //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
                     //fileReady = true;
                 } else {
