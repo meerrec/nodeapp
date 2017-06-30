@@ -11,7 +11,7 @@ var path = require('path');
 var fileName;
 var autorigged_mesh_dae;
 // Setup routing for static assets
-app.use('/public', express.static('public'));
+app.use(express.static('public'));
 app.use(fileUpload());
 
 // Express routes
