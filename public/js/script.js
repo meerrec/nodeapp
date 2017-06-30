@@ -9,11 +9,13 @@
 
     function showPage() {
         document.getElementById("loader").style.display = "none";
-        // document.getElementById("container").style.display = "none";
+        console.log("inside showPage")
+            // document.getElementById("container").style.display = "none";
 
     }
     socket.on('file-ready', function(data) {
         showPage();
+        console.log("inside file-ready")
     });
 
 
