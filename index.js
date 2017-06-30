@@ -7,7 +7,7 @@ server.listen(8080);
 global.io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
-var path= require('path');
+var path = require('path');
 var fileName;
 var autorigged_mesh_dae;
 // Setup routing for static assets
@@ -16,7 +16,7 @@ app.use(fileUpload());
 
 // Express routes
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + 'public/index.html');
 });
 
 app.post('/upload', function(req, res) {
@@ -31,11 +31,11 @@ app.post('/upload', function(req, res) {
 
         // Dynamic Python script generator
 
-        var mesh_obj=req.files.foo.name;
-        fileName= req.files.foo.name;
-        var extension=path.extname(fileName);
-        fileName= path.basename(fileName,extension);
-        autorigged_mesh_dae= fileName + '.dae';
+        var mesh_obj = req.files.foo.name;
+        fileName = req.files.foo.name;
+        var extension = path.extname(fileName);
+        fileName = path.basename(fileName, extension);
+        autorigged_mesh_dae = fileName + '.dae';
         console.log(autorigged_mesh_dae);
         var scriptContent = `getViewer().show()
 from AutoRig import *
@@ -59,18 +59,18 @@ pawn.setStringAttribute('mesh', mesh_obj)
 autoRigManager.buildAutoRiggingFromPawnMesh(defaultPawn0, 0, skeleton_sk, autorigged_mesh_dae)
 saveDeformableMesh(autorigged_mesh_dae, skeleton_sk, save_dir)
 quit()
-`;        
+`;
         fs.writeFile('/var/www/temp/smartbody-cli-mod/' + fileName + '.py', scriptContent, function(err, data) {
 
             var child_process = require("child_process");
-            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script "+ fileName + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
+            child_process.exec("./sbgui -scriptpath /var/www/temp/smartbody-cli-mod -script " + fileName + '.py', { cwd: "/var/www/smartbody/bin" }, function(err, stdout, stderr) {
                 if (err) {
                     console.log(err.toString());
                 } else if (stdout !== "") {
                     console.log(stdout);
                     console.log("Finished execution")
                         // Send client a websocket message about the file being ready.
-                    res.sendFile(__dirname + '/index.html');
+                    res.sendFile(__dirname + 'public/index.html');
                     //res.send('File '+ req.files.foo.name + ' uploaded & saved!');
                     fileReady = true;
                 } else {
@@ -90,7 +90,7 @@ quit()
 
 app.get('/download', function(req, res) {
 
-res.download('/var/www/outputs/'+autorigged_mesh_dae, autorigged_mesh_dae);
+    res.download('/var/www/outputs/' + autorigged_mesh_dae, autorigged_mesh_dae);
 });
 
 // Socket.io
