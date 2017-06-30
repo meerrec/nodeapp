@@ -8,15 +8,17 @@
 
     document.getElementById("uploadFile").onchange = function() {
         document.getElementById("uploadForm").submit();
-         document.getElementById("loader").style.display = "";
+        document.getElementById("loader").style.display = "";
     };
+
     function showPage() {
-     document.getElementById("loader").style.display = "none";
-     document.getElementById("container").style.display = "none";
-  
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("container").style.display = "none";
+
     }
     socket.on('file-ready', function(data) {
         $downloadBtn.style.display = "";
+        var fileName = data.fileName;
         showPage();
     });
     $downloadBtn.addEventListener('click', function() {

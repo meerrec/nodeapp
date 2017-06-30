@@ -449,9 +449,13 @@
                         console.log('Complete');
                     }, 50000);
                 };
+                wwObjLoader2Control.download = function() {
+                    $('#downloadBtn')[0].click();
+                };
 
                 folderOptions.add(wwObjLoader2Control, 'clearAllAssests').name('Clear Scene');
                 folderOptions.add(wwObjLoader2Control, 'uploadServer').name('Save');
+                folderOptions.add(wwObjLoader2Control, 'download').name('Download');
             }
 
             var resizeWindow = function resizeWindow() {

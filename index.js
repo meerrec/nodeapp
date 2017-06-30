@@ -10,6 +10,7 @@ var fileReady = false;
 var path = require('path');
 var fileName;
 var autorigged_mesh_dae;
+
 // Setup routing for static assets
 app.use(express.static('public'));
 app.use(fileUpload());
@@ -109,6 +110,7 @@ io.on('connection', function(socket) {
     if (fileReady == true) {
         fileReady = false;
         socket.emit('file-ready');
+
     }
     // When a client clicks the button
     socket.on('btn-clicked', function() {
