@@ -111,7 +111,7 @@ io.on('connection', function(socket) {
         socket.emit('file-ready');
         console.log("File ready sent");
     }
-
+    socket.on('pause', function() { socket.emit('file-ready'); });
     // When a client clicks the button
     socket.on('btn-clicked', function() {
 
