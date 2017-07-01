@@ -96,14 +96,7 @@ io.on('connection', function(socket) {
     var count;
     console.log("got a connection " + socket);
     // Read the count value from count.txt
-    fs.readFile('count.txt', 'utf-8', function(err, data) {
-        count = data;
-
-        // Send the count to the client when they initially connect
-        socket.emit('new-client-connection', {
-            count: data
-        });
-    });
+   
     if (fileReady == true) {
         fileReady = false;
         socket.emit('file-ready');
@@ -113,20 +106,7 @@ io.on('connection', function(socket) {
     // When a client clicks the button
     socket.on('btn-clicked', function() {
 
-        // Read the count from count.txt
-        fs.readFile('count.txt', 'utf-8', function(err, data) {
-            count = data;
-            count++;
-
-            // Write the incremented value to count.txt
-            fs.writeFile('count.txt', count, function(err, data) {
-
-                // Emit the 'count-updated' event to all connected clients with the updated count value
-                io.sockets.emit('count-updated', {
-                    count: count
-                });
-            });
-        });
+      
     });
 
 });

@@ -181,6 +181,9 @@
                     this.wwObjLoader2 = new THREE.OBJLoader2.WWOBJLoader2();
                     this.wwObjLoader2.setCrossOrigin('anonymous');
 
+                    // File Input
+                    this.inputFileElem = document.getElementById('js-upload');
+
                     // webModal
                     this.webModal = document.getElementById('js-modal');
                     this.webModalClose = document.getElementById('js-close-modal');
@@ -443,6 +446,8 @@
                     scope.scene.remove(scope.pivot);
                     scope.pivot.traverse(remover);
                     scope.createPivot();
+                    scope.inputFileElem.value = null;
+                    console.log();
                 };
 
                 webLoader.prototype.openModal = function () {
