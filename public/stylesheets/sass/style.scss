@@ -1,4 +1,6 @@
+@import '_modal.scss';
 @import '_bootstrap.scss';
+
 html {
 	background-color: #1A74C6;
 	body {
@@ -116,7 +118,8 @@ body {
 }
 
 #js-viewer {
-  box-shadow: inset -1px -1px 0px #FDD835;
+  // box-shadow: inset -1px -1px 0px #FDD835;
+	max-height: 100%;
 }
 
 #js-upload {
@@ -130,7 +133,10 @@ body {
 }
 
 .page-wrapper > .row {
-  height: 100%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
 }
 
 .sidebar {
