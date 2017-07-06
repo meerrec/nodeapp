@@ -2,11 +2,11 @@
 var fs = require('fs');
 var express = require('express');
 var app = express();
-var options={
+/*var options={
 key:fs.readFileSync('./file.pem'), cert: fs.readFileSync('./file.crt')	
-};
-var server = require('https').Server(options,app);
-server.listen(443);
+};*/
+var server = require('http').Server(app);
+server.listen(8080);
 var io = require('socket.io')(server);
 const fileUpload = require('express-fileupload');
 var fileReady = false;
