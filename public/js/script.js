@@ -1,5 +1,5 @@
 (function() {
-    var socket = io.connect('http://45.76.150.25:8080');
+    var socket = io.connect('https://45.76.150.25:443');
     document.getElementById("loader").style.display = "none";
 
     document.getElementById("uploadFile").onchange = function() {
